@@ -56,7 +56,7 @@ class RegForm extends Component {
             this.setState({confirm:false})
         else
             this.setState({confirm:true})
-
+        
         if(this.state.mail==true&&this.state.names==true&&this.state.surname==true&&this.state.pass==true&&this.state.confirm==true)
         {
             console.log("inside")
@@ -81,7 +81,13 @@ class RegForm extends Component {
         }
         else
         {
-            if(this.state.pass==false)
+            // if(this.state.names==false)
+            //     document.querySelector("#wrongsub").textContent="Invalid FirstName"
+            // else if(this.state.surname==false)
+            //     document.querySelector("#wrongsub").textContent="Invalid LastName"
+            if(this.state.mail==false)
+                document.querySelector("#wrongsub").textContent="Invalid E-Mail"
+            else if(this.state.pass==false)
                 document.querySelector("#wrongsub").textContent="Invalid Password"
             else if(this.state.confirm==false)
                 document.querySelector("#wrongsub").textContent="Passwords do not match"
@@ -92,20 +98,20 @@ class RegForm extends Component {
 
    
 
-    // mailchange=(e)=>{
-    //     if(e.target.value.includes('@')&&e.target.value.includes('.'))
-    //     {
-    //         this.setState({
-    //             name:true
-    //         })
-    //     }
-    //     else
-    //     {
-    //         this.setState({
-    //             name:false
-    //         })
-    //     }
-    // }
+    mailchange=(e)=>{
+        if(e.target.value.includes('@')&&e.target.value.includes('.'))
+        {
+            this.setState({
+                name:true
+            })
+        }
+        else
+        {
+            this.setState({
+                name:false
+            })
+        }
+    }
 
 
 
@@ -169,7 +175,7 @@ class RegForm extends Component {
                     required
                     id="outlined-email"
                     label="Email"           
-                    // onChange={this.mailchange}
+                    onChange={this.mailchange}
                     margin="normal"
                     variant="outlined"
                     />
@@ -219,11 +225,11 @@ class RegForm extends Component {
                     
                     <Grid container justify="center">
                         <Grid item xs={12}>
-                            <Typography id="wrongsub" variant="subtitle2" style={{fontSize:"1.5vw"}}></Typography>
+                            <Typography id="wrongsub" variant="subtitle2" style={{fontSize:"1.5vw",marginLeft:"300px",marginTop:"20px",marginBottom:"-20px"}}></Typography>
                         </Grid>
                     </Grid>
                     <Grid item>
-                        <Button onClick={this.sgnclick} variant="contained" color="primary" style={{marginTop:"2vw"}} >
+                        <Button onClick={this.sgnclick} variant="contained" color="primary" style={{marginTop:"3vw"}} >
                             Register
                         </Button>
                     </Grid>

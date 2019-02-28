@@ -9,3 +9,6 @@
     background:url('../../../images/hd-wallpaper-macro-splash-67843.jpg') no-repeat;
     background-size:cover;
 }
+#back:focus{
+    outline:none;
+}

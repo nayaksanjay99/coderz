@@ -49,12 +49,12 @@ const dashboardRoutes = [
   },
   {
     path: "/notifications",
-    sidebarName: "Notifications/Feedback",
+    sidebarName: "Notifications",
     navbarName: "Notifications",
     icon: Notifications,
     component: NotificationsPage
   },
-  { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+  { redirect: true, path: "/", to: "/", navbarName: "Redirect" }
 ];
 
 export default dashboardRoutes;

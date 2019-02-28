@@ -4,6 +4,7 @@ import LandingPage from './Component/Pages/LandingPage/index'
 import Login from './Component/Pages/Login/index'
 import Signup from './Component/Pages/Signup/signup'
 import DashBoard from './layouts/Dashboard/Dashboard'
+import UserDashBoard from './user/layouts/Dashboard/Dashboard'
 import { createBrowserHistory } from "history";
 import "assets/css/material-dashboard-react.css?v=1.5.0";
 
@@ -23,7 +24,9 @@ export default class Router extends Component{
                     <Route exact path="/About" component={LandingPage}/>    //correct
                     <Route exact path="/user/login" component={Login}/>     //correct
                     <Route exact path="/user/signup" component={Signup}/>   //correct 
-                    <Route exact path="/dashboard" component={DashBoard}/>     //incorrect --
+                    <Route exact path="/dashboards" component={UserDashBoard}/> 
+                    <Route exact path="/dashboard" component={DashBoard}/>     //correct 
+                 //correct 
                     {indexRoutes.map((prop, key) => {
                         return <Route path={prop.path} component={prop.component} key={key} />;
                     })}

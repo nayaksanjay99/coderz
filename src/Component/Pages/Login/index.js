@@ -3,8 +3,18 @@ import {Grid, Paper, MuiThemeProvider} from '@material-ui/core';
 import LgForm from './LgForm';
 import './index.css'
 import Display from '../../../images/satyamevjayate_Logo.png'
+import {Button} from '@material-ui/core'
+
+
 
 class LoginPage extends Component {
+
+    
+clicker=()=>{
+    console.log(this.props)
+    this.props.history.push('/')
+}
+
     state = { data:null }
     render() { 
         return ( 
@@ -15,6 +25,9 @@ class LoginPage extends Component {
                     </div>
                     <div style={{float:"left",width:"60%",borderLeft:"2px solid black"}}>
                         <LgForm  myFetch={this.props.myFetch} loginProp={this.props} />
+                    </div>
+                    <div>
+                        <Button onClick={this.clicker} id="back" style={{clear:"both",width:"87%",margin:"2px 50px 2px 50px",backgroundColor:"rgba(63, 81, 181, 0.98)",color:"#eee",height:"50px",borderRadius:"10px"}}>Go Back to Home Page</Button>
                     </div>
                 </Paper>
                 {/*<div style={{background: "linear-gradient(135deg, rgb(96, 108, 136) 0%, rgb(63, 76, 107) 100%)"}}>

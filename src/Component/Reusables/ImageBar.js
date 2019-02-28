@@ -26,7 +26,7 @@ export default class ImageBar extends React.Component{
                         </a>
                     </div>
                 </div>
-                <a className="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                <a className="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev" >
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span className="sr-only">Previous</span>
                 </a>
