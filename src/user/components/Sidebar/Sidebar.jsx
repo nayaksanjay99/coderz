@@ -38,7 +38,7 @@ const Sidebar = ({ ...props }) => {
         });
         return (
           <NavLink
-            to={prop.path}
+            to={prop.path+'s'}
             className={activePro + classes.item}
             activeClassName="active"
             key={key}

@@ -92,11 +92,11 @@ class Notifications extends React.Component {
               <br />
               <SnackbarContent message={"This is a plain notification"} />
               <SnackbarContent
-                message={"This is a notification with close button."}
+                message={"This is a notifiation with close button."}
                 close
               />
               <SnackbarContent
-                message={"This is a notification with close button and icon."}
+                message={"This is a notfication with close button and icon."}
                 close
                 icon={AddAlert}
               />
