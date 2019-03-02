@@ -21,7 +21,7 @@ const dashboardRoutes = [
   {
     path: "/dashboard",
     sidebarName: "Dashboard",
-    navbarName: "Hello Sanjay",
+    navbarName: "Welcome!",
     icon: Dashboard,
     component: DashboardPage
   },
@@ -57,4 +57,7 @@ const dashboardRoutes = [
   { redirect: true, path: "/", to: "/", navbarName: "Redirect" }
 ];
 
-export default dashboardRoutes;
+
+
+
+export default (dashboardRoutes);

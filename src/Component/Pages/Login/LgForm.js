@@ -26,10 +26,16 @@ class LgForm extends Component {
       .getUserDetails(mailid, password)
       .then(() => {
         console.log("login successful");
+        console.log(this.props)
+       if(this.props.userState.fname!==undefined)
+          this.props.loginProp.history.push('/dashboard')
+        else
+          alert('Incorrect Username or Password')
       })
       .catch(error => {
         console.log(error);
       });
+      
   };
   render() {
     console.log(this.props);
