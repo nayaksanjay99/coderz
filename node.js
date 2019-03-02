@@ -20,6 +20,8 @@ app.use(bodyParser.json());
 var rest = [];
 
 app.post("/login", async (req, res, next) => {
+  console.log("here");
+  console.log(req.data);
   console.log(req.body.mailid);
   const db = getdb();
   var rex = null;
@@ -37,6 +39,7 @@ app.post("/login", async (req, res, next) => {
       if (rest[0].pass === req.body.password) {
         console.log("correct password");
         var obj = {
+          id: rest[0]._id,
           fname: rest[0].fname,
           lname: rest[0].lname,
           mail: rest[0].mail,

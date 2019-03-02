@@ -17,7 +17,7 @@ export default function productOptions(state = initialState, action) {
         fname: action.fname,
         lname: action.lname,
         mail: action.mail,
-        notification: action.notification,
+        notifications: action.notifications,
         isAdmin: action.isAdmin
       };
     case UPDATE_USER:

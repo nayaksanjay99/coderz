@@ -7,8 +7,11 @@ import {
   Divider
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getUserDetails } from "../../../actions/user";
 
 import red from "@material-ui/core/colors/red";
+import { bindActionCreators } from "redux";
 
 const secondary = red[0];
 
@@ -17,37 +20,16 @@ class LgForm extends Component {
   lgclick = async e => {
     console.log("inside lgclick");
     e.preventDefault();
-    var mailid = document.getElementById("outlined-name").value;
-    var password = document.getElementById("outlined-name2").value;
-    const res = await fetch("http://localhost:3001/login", {
-      ///dont change to axios
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      method: "POST",
-      body: JSON.stringify({ mailid: mailid, password: password })
-    });
-    console.log("waiting for data");
-    const data = await res.json();
-    console.log("data received");
-    console.log(data);
-    if (data != false) {
-      this.setState({ data: data });
-      console.log("-------");
-      console.log(this.state.data);
-      //   this.props.loginProp.history.push('/Home')
-      //   console.log(this.props.loginProp.history.location.pathname)
-      // this.props.loginProp.history.location.pathname
-      // this.props.myFetch(this.state.data)
-      if (this.state.data !== null && this.state.data !== false) {
-        this.props.loginProp.history.push("/dashboard");
-        console.log(this.props.loginProp); //haha
-      }
-    } else {
-      alert("Invalid username or password");
-      // this.props.loginProp.history.push('/Error')
-    }
+    var mailid = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    this.props
+      .getUserDetails(mailid, password)
+      .then(() => {
+        console.log("login successful");
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
   render() {
     console.log(this.props);
@@ -67,7 +49,7 @@ class LgForm extends Component {
 
           <Grid item xs={6} style={{ marginTop: 10 }}>
             <TextField
-              id="outlined-name"
+              id="email"
               label="E-mail ID"
               autoFocus
               // className={classes.textField}
@@ -83,7 +65,7 @@ class LgForm extends Component {
 
           <Grid item xs={6}>
             <TextField
-              id="outlined-name2"
+              id="password"
               type="password"
               label="Password"
               // className={classes.textField}
@@ -156,4 +138,19 @@ class LgForm extends Component {
   }
 }
 
-export default LgForm;
+const mapStateToProps = ({ userState }) => ({
+  userState
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getUserDetails
+    },
+    dispatch
+  );
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LgForm);

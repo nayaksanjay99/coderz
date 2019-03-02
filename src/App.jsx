@@ -6,7 +6,6 @@ import Signup from "./Component/Pages/Signup/signup";
 import DashBoard from "./layouts/Dashboard/Dashboard";
 import UserDashBoard from "./user/layouts/Dashboard/Dashboard";
 import "assets/css/material-dashboard-react.css?v=1.5.0";
-import AdminLogin from "./Component/Pages/AdminLogin/index";
 
 import indexRoutes from "routes/index.jsx";
 

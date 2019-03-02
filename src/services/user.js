@@ -1,15 +1,18 @@
-import find from "lodash/find";
-import isNull from "lodash/isNull";
-import filter from "lodash/filter";
-
 const endpointUrl = "http://localhost:3001";
 
 export const getUser = (email, password) => {
-  new Promise((resolve, reject) => {
-    return fetch(`${endpointUrl}/login`)
+  return new Promise((resolve, reject) => {
+    fetch(`${endpointUrl}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mailid: email, password })
+    })
       .then(res => {
-        console.log(res);
-        return resolve(res);
+        const text = res.text();
+        return text.then(value => {
+          console.log(value);
+          return resolve(JSON.parse(value));
+        });
       })
       .catch(error => {
         console.log(error);
@@ -17,3 +20,6 @@ export const getUser = (email, password) => {
       });
   });
 };
+
+export const updateUser = () => {};
+export const deleteUser = () => {};
