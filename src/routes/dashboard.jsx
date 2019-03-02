@@ -16,12 +16,13 @@ import Icons from "views/Icons/Icons.jsx";
 import Maps from "views/Maps/Maps.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
+import {connect} from 'react-redux'
 
 const dashboardRoutes = [
   {
     path: "/dashboard",
     sidebarName: "Dashboard",
-    navbarName: "Hello Sanjay",
+    navbarName: "Hello ",
     icon: Dashboard,
     component: DashboardPage
   },
@@ -57,4 +58,9 @@ const dashboardRoutes = [
   { redirect: true, path: "/", to: "/", navbarName: "Redirect" }
 ];
 
-export default dashboardRoutes;
+
+const mapStateToProps = ({ userState }) => ({
+  userState
+});
+
+export default(dashboardRoutes);
