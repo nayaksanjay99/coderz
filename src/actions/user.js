@@ -3,7 +3,7 @@ import { getUser, updateUser, deleteUser } from "../services/user";
 
 export const getUserDetails = (email, password) => dispatch => {
   return getUser(email, password).then(user => {
-    dispatch({
+    return dispatch({
       type: GET_USER,
       id: user.id,
       fname: user.fname,
