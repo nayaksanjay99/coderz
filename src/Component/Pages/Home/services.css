@@ -1,6 +1,7 @@
 #servicemethod{
     position:relative;
     cursor:pointer;
+    overflow: hidden;
 }
 #servicemethod:before {
     content: "";
@@ -22,6 +23,10 @@
     color:BLACK;
     padding-bottom:10px;
     padding-top:10px;
+    float:left;
+    margin-right:10%;
+    margin-left:12%;
+    border-radius:10px;
 }
 
 .card{
@@ -32,7 +37,8 @@
     visibility:hidden;
     z-index: 10;
     color:#fff;
-    left:30%;
+    left:20%;
+    top:40%
 }
 #visible h6{
     font-size: 3vw;

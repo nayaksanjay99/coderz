@@ -22,11 +22,10 @@ const dashboardRoutes = [
   {
     path: "/dashboard",
     sidebarName: "Dashboard",
-    navbarName: "Hello ",
+    navbarName: "Welcome!",
     icon: Dashboard,
     component: DashboardPage
   },
-  // },
   {
     path: "/user",
     sidebarName: "User Profile",

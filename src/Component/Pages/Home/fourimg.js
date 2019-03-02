@@ -20,8 +20,8 @@ export default class Fourimg extends React.Component{
                     </div>
                 </div>
                 <div className="proj">
-                    <img style={{width:"37vw",height:"19.37vw",float:"left"}} src={aby} alt="Atal Bhujal Yojana"/>
-                    <div className="proj_head">
+                    <img style={{width:"37vw",height:"19.37vw",float:"right"}} src={aby} alt="Atal Bhujal Yojana"/>
+                    <div className="proj_head" style={{paddingLeft:0}}>
                         <h3>Atal Bhujal Yojana (ABHY)</h3>
                         <h4> National Groundwater Management Improvement Program </h4>
                         <p>The development objective of Atal Bhujal Yojana (ABHY) - National Groundwater Management Improvement Program for India is to improve the management of groundwater resources in selected states.
