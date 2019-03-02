@@ -7,37 +7,25 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Store from "@material-ui/icons/Store";
-import Warning from "@material-ui/icons/Warning";
 import DateRange from "@material-ui/icons/DateRange";
 import LocalOffer from "@material-ui/icons/LocalOffer";
 import Update from "@material-ui/icons/Update";
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import AccessTime from "@material-ui/icons/AccessTime";
+import {AccessTime} from "@material-ui/icons";
+import {Typography} from '@material-ui/core'
 import Accessibility from "@material-ui/icons/Accessibility";
-import BugReport from "@material-ui/icons/BugReport";
-import Code from "@material-ui/icons/Code";
-import Cloud from "@material-ui/icons/Cloud";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Table from "components/Table/Table.jsx";
-import Tasks from "components/Tasks/Tasks.jsx";
-import CustomTabs from "components/CustomTabs/CustomTabs.jsx";
-import Danger from "components/Typography/Danger.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Input from './input'
+import './index.css'
 
-import { bugs, website, server } from "variables/general.jsx";
 
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "variables/charts.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
@@ -53,8 +41,265 @@ class Dashboard extends React.Component {
     this.setState({ value: index });
   };
 
+  
+
   render() {
     //
+    var delays = 80,
+  durations = 500;
+var delays2 = 80,
+  durations2 = 500;
+  var Chartist = require("chartist");
+
+    const dailySalesChart = {
+      data: {
+        labels: ["70-90", "90-110", "110-130", "130-150", ">150"],
+        series: [[12, 17, 7, 17, 23],[10,7,5,20,35]]
+      },
+      options: {
+        lineSmooth: Chartist.Interpolation.cardinal({
+          tension: 0
+        }),
+        low: 0,
+        high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+        chartPadding: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
+        }
+      },
+      // for animation
+      animation: {
+        draw: function(data) {
+          if (data.type === "line" || data.type === "area") {
+            data.element.animate({
+              d: {
+                begin: 600,
+                dur: 700,
+                from: data.path
+                  .clone()
+                  .scale(1, 0)
+                  .translate(0, data.chartRect.height())
+                  .stringify(),
+                to: data.path.clone().stringify(),
+                easing: Chartist.Svg.Easing.easeOutQuint
+              }
+            });
+          } else if (data.type === "point") {
+            data.element.animate({
+              opacity: {
+                begin: (data.index + 1) * delays,
+                dur: durations,
+                from: 0,
+                to: 1,
+                easing: "ease"
+              }
+            });
+          }
+        }
+      }
+    };
+
+
+    const emailsSubscriptionChart = {
+      data: {
+        labels: ["70-90", "90-110", "110-130", "130-150", ">150"],
+        series: [[12, 17, 7, 17, 23],[10,7,5,20,35]]
+      },
+      options: {
+        axisX: {
+          showGrid: false
+        },
+        low: 0,
+        high: 50,
+        chartPadding: {
+          top: 0,
+          right: 5,
+          bottom: 0,
+          left: 0
+        }
+      },
+      responsiveOptions: [
+        [
+          "screen and (max-width: 640px)",
+          {
+            seriesBarDistance: 5,
+            axisX: {
+              labelInterpolationFnc: function(value) {
+                return value[0];
+              }
+            }
+          }
+        ]
+      ],
+      animation: {
+        draw: function(data) {
+          if (data.type === "bar") {
+            data.element.animate({
+              opacity: {
+                begin: (data.index + 1) * delays2,
+                dur: durations2,
+                from: 0,
+                to: 1,
+                easing: "ease"
+              }
+            });
+          }
+        }
+      }
+    };
+    const dailySalesChart2 = {
+      data: {
+        labels: ["70-90", "90-110", "110-130", "130-150", ">150"],
+        series: [[12, 17, 7, 17, 23],[10,7,5,20,35]]
+      },
+      options: {
+        lineSmooth: Chartist.Interpolation.cardinal({
+          tension: 0
+        }),
+        low: 0,
+        high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+        chartPadding: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
+        }
+      },
+      // for animation
+      animation: {
+        draw: function(data) {
+          if (data.type === "line" || data.type === "area") {
+            data.element.animate({
+              d: {
+                begin: 600,
+                dur: 700,
+                from: data.path
+                  .clone()
+                  .scale(1, 0)
+                  .translate(0, data.chartRect.height())
+                  .stringify(),
+                to: data.path.clone().stringify(),
+                easing: Chartist.Svg.Easing.easeOutQuint
+              }
+            });
+          } else if (data.type === "point") {
+            data.element.animate({
+              opacity: {
+                begin: (data.index + 1) * delays,
+                dur: durations,
+                from: 0,
+                to: 1,
+                easing: "ease"
+              }
+            });
+          }
+        }
+      }
+    };
+
+
+    const emailsSubscriptionChart2 = {
+      data: {
+        labels: ["70-90", "90-110", "110-130", "130-150", ">150"],
+        series: [[0,0,0,0,0],[0,0,0,0,0]]
+      },
+      options: {
+        axisX: {
+          showGrid: false
+        },
+        low: 0,
+        high: 50,
+        chartPadding: {
+          top: 0,
+          right: 5,
+          bottom: 0,
+          left: 0
+        }
+      },
+      responsiveOptions: [
+        [
+          "screen and (max-width: 640px)",
+          {
+            seriesBarDistance: 5,
+            axisX: {
+              labelInterpolationFnc: function(value) {
+                return value[0];
+              }
+            }
+          }
+        ]
+      ],
+      animation: {
+        draw: function(data) {
+          if (data.type === "bar") {
+            data.element.animate({
+              opacity: {
+                begin: (data.index + 1) * delays2,
+                dur: durations2,
+                from: 0,
+                to: 1,
+                easing: "ease"
+              }
+            });
+          }
+        }
+      }
+    };
+
+
+    const completedTasksChart = {
+      data: {
+        labels: ["70-90", "90-110", "110-130", "130-150", ">150"],
+        series: [[12, 17, 7, 17, 23],[1,2,3,4,6]]
+      },
+      options: {
+        lineSmooth: Chartist.Interpolation.cardinal({
+          tension: 0
+        }),
+        low: 0,
+        high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+        chartPadding: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
+        }
+      },
+      animation: {
+        draw: function(data) {
+          if (data.type === "line" || data.type === "area") {
+            data.element.animate({
+              d: {
+                begin: 600,
+                dur: 700,
+                from: data.path
+                  .clone()
+                  .scale(1, 0)
+                  .translate(0, data.chartRect.height())
+                  .stringify(),
+                to: data.path.clone().stringify(),
+                easing: Chartist.Svg.Easing.easeOutQuint
+              }
+            });
+          } else if (data.type === "point") {
+            data.element.animate({
+              opacity: {
+                begin: (data.index + 1) * delays,
+                dur: durations,
+                from: 0,
+                to: 1,
+                easing: "ease"
+              }
+            });
+          }
+        }
+      }
+    };
+
+
+
 
 
                             let d=new Date();
@@ -102,6 +347,7 @@ class Dashboard extends React.Component {
                                     sec = "0"+sec;
                             }
                             
+
 
 
 
@@ -212,9 +458,11 @@ class Dashboard extends React.Component {
       justify="center"
       alignItems="center"
             >
-                  <GridItem xs={12} sm={12} md={6}>
+            <Typography variant="h2">INPUTS</Typography>
+                  <GridItem xs={24} sm={24} md={24}>
                     <Input/>
                   </GridItem>
+            
         </GridContainer>
         <GridContainer>
         <GridItem xs={24} sm={24} md={6}>
@@ -300,10 +548,10 @@ class Dashboard extends React.Component {
             <CardHeader color="success">
               <ChartistGraph
                 className="ct-chart"
-                data={dailySalesChart.data}
+                data={dailySalesChart2.data}
                 type="Line"
-                options={dailySalesChart.options}
-                listener={dailySalesChart.animation}
+                options={dailySalesChart2.options}
+                listener={dailySalesChart2.animation}
               />
             </CardHeader>
             <CardBody>
@@ -311,7 +559,7 @@ class Dashboard extends React.Component {
               <p className={classes.cardCategory}>
                 <span className={classes.successText}>
                   {/*<ArrowUpward className={classes.upArrowCardCategory} /> 55%*/}
-                </span>{" "}
+               </span>{" "}
                 Change in depth of wells
               </p>
             </CardBody>
@@ -327,11 +575,11 @@ class Dashboard extends React.Component {
             <CardHeader color="warning">
               <ChartistGraph
                 className="ct-chart"
-                data={emailsSubscriptionChart.data}
+                data={emailsSubscriptionChart2.data}
                 type="Bar"
-                options={emailsSubscriptionChart.options}
-                responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                listener={emailsSubscriptionChart.animation}
+                options={emailsSubscriptionChart2.options}
+                responsiveOptions={emailsSubscriptionChart2.responsiveOptions}
+                listener={emailsSubscriptionChart2.animation}
               />
             </CardHeader>
             <CardBody>
@@ -346,7 +594,8 @@ class Dashboard extends React.Component {
               </div>
             </CardFooter>
           </Card>
-        </GridItem>
+     </GridItem>
+     <div id="andha">Your current request cannot be processed due to the insufficient data. Please try after some days.</div>
         {/*<GridItem xs={12} sm={12} md={4}>
           <Card chart>
             <CardHeader color="danger">
