@@ -16,6 +16,7 @@ import Icons from "views/Icons/Icons.jsx";
 import Maps from "views/Maps/Maps.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
+import {connect} from 'react-redux'
 
 const dashboardRoutes = [
   {
@@ -25,7 +26,6 @@ const dashboardRoutes = [
     icon: Dashboard,
     component: DashboardPage
   },
-  // },
   {
     path: "/user",
     sidebarName: "User Profile",
@@ -58,6 +58,8 @@ const dashboardRoutes = [
 ];
 
 
+const mapStateToProps = ({ userState }) => ({
+  userState
+});
 
-
-export default (dashboardRoutes);
+export default(dashboardRoutes);
