@@ -41,6 +41,7 @@ app.post('/login',async(req,res,next)=>{
                     mail:rest[0].mail,
                     pass:rest[0].pass,
                     notifications:rest[0].notifications,
+                    isAdmin:rest[0].isAdmin
                 }
                 console.log(obj)
                 res.json(obj)
@@ -69,10 +70,10 @@ app.post('/signup',async(req,res,next)=>{
         if(rex.length==0)
         {
             const result=await db.collection('login')
-            .insertOne({fname:req.body.fname,lname:req.body.lname,mail:req.body.mail,pass:req.body.pass,notifications:[]})
+            .insertOne({fname:req.body.fname,lname:req.body.lname,mail:req.body.mail,pass:req.body.pass,notifications:[],isAdmin:false})
             console.log(result)
             var obj={
-                fname:req.body.fname,lname:req.body.lname,mail:req.body.mail,pass:req.body.pass,notifications:[]
+                fname:req.body.fname,lname:req.body.lname,mail:req.body.mail,pass:req.body.pass,notifications:[],isAdmin:false
             }
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -110,6 +111,34 @@ app.post('/signup',async(req,res,next)=>{
             console.log(err)
         }
         
+})
+
+
+app.get('/delete:id',async(req,res,next)=>{
+    if(id!=null)
+    {
+        const db=getdb()
+        var rex=null
+        try{
+            rex=await db.collection('login').find({id:req.params.id}).toArray()
+            if(rex.length!=0)
+            {
+                db.orders.deleteOne( { "_id" : re.params.id } );
+                console.log("success")
+                res.json(true)
+            }
+            else{
+                res.json(false)
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+    else
+    {
+        res.json(false)
+    }
 })
 
 
