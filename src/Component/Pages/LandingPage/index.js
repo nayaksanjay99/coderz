@@ -44,7 +44,7 @@ export default class LandingPage extends React.Component{
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/tender" component={Tender}/>
-                        <Route exact path="/about" component={About}/>
+                        <Route exact path="/About" component={About}/>
                     </Switch>
                     <div>
                     <footer class="footer-distributed">

@@ -26,13 +26,13 @@ const dashboardRoutes = [
     component: DashboardPage
   },
   // },
-  // {
-  //   path: "/user",
-  //   sidebarName: "User Profile",
-  //   navbarName: "Profile",
-  //   icon: Person,
-  //   component: UserProfile
-  // },
+  {
+    path: "/user",
+    sidebarName: "User Profile",
+    navbarName: "Profile",
+    icon: Person,
+    component: UserProfile
+  },
   {
     path: "/table",
     sidebarName: "Users",

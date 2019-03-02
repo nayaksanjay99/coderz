@@ -6,7 +6,8 @@ import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
+import {TableCell,IconButton} from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
 // core components
 import tableStyle from "assets/jss/material-dashboard-react/components/tableStyle.jsx";
 
@@ -28,6 +29,7 @@ function CustomTable({ ...props }) {
                   </TableCell>
                 );
               })}
+              
             </TableRow>
           </TableHead>
         ) : null}
@@ -42,6 +44,9 @@ function CustomTable({ ...props }) {
                     </TableCell>
                   );
                 })}
+                <IconButton aria-label="Delete">
+              <DeleteIcon />
+            </IconButton>
               </TableRow>
             );
           })}
