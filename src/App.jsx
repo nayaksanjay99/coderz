@@ -19,8 +19,6 @@ export default class Router extends Component {
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/tender" component={LandingPage} />
             <Route exact path="/About" component={LandingPage} />
-            <Route exact path="/About" component={LandingPage} />
-            <Route exact path="/admin/login" component={AdminLogin} />
             <Route exact path="/user/login" component={Login} />
             <Route exact path="/user/signup" component={Signup} />
             <Route exact path="/dashboards" component={UserDashBoard} />{" "}
