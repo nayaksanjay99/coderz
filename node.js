@@ -66,15 +66,13 @@ app.post("/signup", async (req, res, next) => {
     console.log(rex);
     console.log(rex.length);
     if (rex.length == 0) {
-      const result = await db
-        .collection("login")
-        .insertOne({
-          fname: req.body.fname,
-          lname: req.body.lname,
-          mail: req.body.mail,
-          pass: req.body.pass,
-          notifications: []
-        });
+      const result = await db.collection("login").insertOne({
+        fname: req.body.fname,
+        lname: req.body.lname,
+        mail: req.body.mail,
+        pass: req.body.pass,
+        notifications: []
+      });
       console.log(result);
       var obj = {
         fname: req.body.fname,
