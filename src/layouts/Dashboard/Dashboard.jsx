@@ -18,7 +18,7 @@ import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboar
 
 import image from "assets/img/sidebar-4.jpg";
 // import logo from "assets/img/reactlogo.png";
-import logo from '../../images/satyameva.png'
+import logo from '../../images/logo.jpg'
 
 const switchRoutes = (
   <Switch>
@@ -72,7 +72,6 @@ class App extends React.Component {
       <div className={classes.wrapper}>
         <Sidebar
           routes={dashboardRoutes}
-          logoText={"Govt. of INDIA"}
           logo={logo}
           image={image}
           handleDrawerToggle={this.handleDrawerToggle}
