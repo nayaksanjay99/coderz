@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {MenuItem,TextField,MuiThemeProvider,createMuiTheme} from '@material-ui/core';
+import {MenuItem,TextField,MuiThemeProvider,createMuiTheme,Button} from '@material-ui/core';
+import Files from '../../deep.json'
+import Grid from '@material-ui/core/Grid';
+import { connect } from "react-redux";
+import { updateInputDetails } from "../../actions/inputs";
+import { bindActionCreators } from "redux";
+import Servicefile from '../../services/getPredictedData'
+import autobind from 'react-autobind'
 
 
 const theme = createMuiTheme({
@@ -30,6 +37,49 @@ const styles = theme => ({
       width:"300px"
     },
   });
+
+  const years=[
+    {
+      "value":"2017",
+      "label":"2017"
+    },
+    {
+      "value":"2018",
+      "label":"2018"
+    },
+    {
+      "value":"2019",
+      "label":"2019"
+    },
+    {
+      "value":"2020",
+      "label":"2020"
+    },
+    {
+      "value":"2021",
+      "label":"2021"
+    },
+    {
+      "value":"2022",
+      "label":"2022"
+    },
+    {
+      "value":"2023",
+      "label":"2023"
+    },
+    {
+      "value":"2024",
+      "label":"2024"
+    },
+    {
+      "value":"2025",
+      "label":"2025"
+    },
+    {
+      "value":"2026",
+      "label":"2026"
+    }
+  ]
   
   const currencies = [
     {
@@ -213,33 +263,86 @@ const styles = theme => ({
     "label": "West Bengal",
     }
     ]
+
   
 
 
 class Input extends React.Component{
-    
+
+
     state = {
         name: 'Cat in the Hat',
         age: '',
         multiline: 'Controlled',
         currency: 'Maharashtra',
+        districts:[],
+        year:"2021"
       };
     
       handleChange = name => event => {
         this.setState({
           [name]: event.target.value,
         });
+        if(name=='currency')
+          this.currencycaller(event.target.value);
+        else if(name=='dist')
+        this.distcaller(event.target.value);
       };
+
+      submits=async e=>{
+    
+        e.preventDefault();
+        var state = document.getElementById("outlined-select-currency").value;
+        var district = document.getElementById("outlined-select-dist").value;
+        var block = document.getElementById("outlined-select-block").value;
+        var year = document.getElementById("outlined-select-year").value;
+        this.props
+          .updateInputDetails(state, district, block, year)
+        this.Servicefile(state,district,block,year)
+    }
+
+      componentWillMount(){
+        let districts=[]
+        console.log(Files)
+        districts=Files.Worksheet.filter(function(elm){return elm.STATE=="MAHARASHTRA"})
+        var blocks=Files.Worksheet.filter(function(elm){return elm.DISTRICT==districts[0].DISTRICT})
+        this.setState({districts,blocks,dist:districts[0].DISTRICT,block:districts[0].BLOCK})
+      }
+
+      currencycaller=(rajya)=>{
+        rajya=rajya.toUpperCase();
+        console.log(rajya)
+        var districts=Files.Worksheet.filter(function(elm){console.log(elm.STATE);return elm.STATE==rajya})
+        console.log('just above')
+        console.log('--------------------')
+        console.log(districts)
+        var blocks=Files.Worksheet.filter(function(elm){return elm.DISTRICT==districts[0].DISTRICT})
+        this.setState({districts,blocks,dist:districts[0].DISTRICT,block:districts[0].BLOCK})
+      }
+
+      distcaller=(jilha)=>{
+        jilha=jilha.toUpperCase();
+        var blocks=Files.Worksheet.filter(function(elm){return elm.DISTRICT==jilha})
+        this.setState({blocks,block:blocks[0].BLOCK})
+
+      }
 
     render(){
 
 
           const { classes } = this.props;
 
+          let y=null
+          let b=null
+        
+
 
         return(
             <div>
               <MuiThemeProvider theme={theme}>
+              <Grid container>
+              <Grid container>
+              <Grid item xs={6} md={6} sm={4}>
                   <TextField
                   id="outlined-select-currency"
                   select
@@ -261,14 +364,51 @@ class Input extends React.Component{
                       {option.label}
                       </MenuItem>
                   ))}
-                  </TextField>   
+                  </TextField>  
+                  </Grid> 
+                  <Grid item xs={6} md={6} sm={4}>
                   <TextField
-                  id="outlined-select-currency"
+                  id="outlined-select-dist"
                   select
                   label="Select"
                   className={classes.textField}
-                  value={this.state.currency}
-                  onChange={this.handleChange('currency')}
+                  value={this.state.dist}
+                  onChange={this.handleChange('dist')}
+                  SelectProps={{
+                      MenuProps: {
+                      className: classes.menu,
+                      },
+                  }}
+                  helperText="Please select your District"
+                  margin="normal"
+                  variant="outlined"
+                  >
+                  {this.state.districts.map(function(option) {
+                    
+                    if(y!=option.DISTRICT)
+                    {
+                      y=option.DISTRICT
+                      console.log(option.DISTRICT)
+                      return(
+                        <MenuItem key={option.DISTRICT} value={option.DISTRICT}>
+                        {option.DISTRICT}
+                        </MenuItem>)
+                      }
+                      else
+                        return false
+                  })}
+                  </TextField>  
+                  </Grid> 
+                  </Grid>
+                  <Grid container>
+                  <Grid item xs={6} md={6} sm={4} >
+                  <TextField
+                  id="outlined-select-block"
+                  select
+                  label="Select"
+                  className={classes.textField}
+                  value={this.state.block}
+                  onChange={this.handleChange('block')}
                   SelectProps={{
                       MenuProps: {
                       className: classes.menu,
@@ -278,21 +418,67 @@ class Input extends React.Component{
                   margin="normal"
                   variant="outlined"
                   >
-                  {currencies.map(option => (
-                      <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                      </MenuItem>
-                  ))}
-                  </TextField>   
+                  {console.log(this.state.blocks)}
+                  {this.state.blocks.map(function(option){
+                    if(b!=option.BLOCK)
+                    {
+                      b=option.BLOCK
+                      console.log(option.DISTRICT)
+                      return(
+                        <MenuItem key={option.BLOCK} value={option.BLOCK}>
+                        {option.BLOCK}
+                        </MenuItem>)
+                      }
+                      else
+                        return false
+                    
+                  })}
+                  </TextField> 
+                  </Grid>
+                  <Grid item xs={6} md={6} sm={4}>
+                  <TextField
+                  id="outlined-select-year"
+                  select
+                  label="Select"
+                  className={classes.textField}
+                  value={this.state.year}
+                  onChange={this.handleChange('year')}
+                  SelectProps={{
+                      MenuProps: {
+                      className: classes.menu,
+                      },
+                  }}
+                  helperText="Please select the year"
+                  margin="normal"
+                  variant="outlined"
+                  >
+                  {years.map(option => (
+                    <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                    </MenuItem>
+                ))}
+                  </TextField> 
+                  </Grid>
+                  </Grid>
+                  </Grid>
                 </MuiThemeProvider>
+                <Button id="submitter" onClick={this.submits} style={{backgroundColor:"#007bff",color:"#eee"}}>Submit</Button>
             </div> 
         )
     }
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      updateInputDetails
+    },
+    dispatch
+  );
 
 
 Input.propTypes = {
     classes: PropTypes.object.isRequired,
   };
   
-  export default withStyles(styles)(Input);
+  export default connect(null,mapDispatchToProps)(withStyles(styles)(Input));
