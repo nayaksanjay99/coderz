@@ -26,21 +26,24 @@ import { connect } from "react-redux";
 import Input from "./input";
 import "./index.css";
 import concat from "lodash/concat";
-import { getGroundWaterPredictions } from "../../services/getPredictedData";
-
+import getDepthData from "../../services/getDepthData";
+import isNil from "lodash/isNil";
+import Loading from "./Loading";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0
+      value: 0,
+      loading: true
     };
   }
 
   componentDidMount() {
-    console.log(this.props);
+    this.setState({ loading: false });
   }
+
   handleChange = (event, value) => {
     this.setState({ value });
   };
@@ -50,14 +53,13 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    //
     var delays = 80,
       durations = 500;
     var delays2 = 80,
       durations2 = 500;
     var Chartist = require("chartist");
 
-    const dailySalesChart = {
+    const depthData = {
       data: {
         labels: ["70-90", "90-110", "110-130", "130-150", ">150"],
         series: [[12, 17, 7, 17, 23], [10, 7, 5, 20, 35]]
@@ -106,12 +108,8 @@ class Dashboard extends React.Component {
         }
       }
     };
-
     const emailsSubscriptionChart = {
-      data: {
-        labels: ["70-90", "90-110", "110-130", "130-150", ">150"],
-        series: [[12, 17, 7, 17, 23], [10, 7, 5, 20, 35]]
-      },
+      data: depthData,
       options: {
         axisX: {
           showGrid: false
@@ -254,7 +252,18 @@ class Dashboard extends React.Component {
 
     const completedTasksChart = {
       data: {
-        labels: ["70-90", "90-110", "110-130", "130-150", ">150"],
+        labels: [
+          "2012",
+          "2013",
+          "2014",
+          "2015",
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020",
+          "2021"
+        ],
         series: [[12, 17, 7, 17, 23], [1, 2, 3, 4, 6]]
       },
       options: {
@@ -384,6 +393,25 @@ class Dashboard extends React.Component {
 
     //
     const { classes } = this.props;
+    const { loading } = this.state;
+    if (loading) {
+      return <Loading />;
+    }
+    completedTasksChart.data.series[0] = concat(
+      completedTasksChart.data.series[0],
+      this.props.predictedDataState.groundWaterValues
+    );
+
+    completedTasksChart.data.series[1] = concat(
+      completedTasksChart.data.series[1],
+      this.props.predictedDataState.groundWaterValues
+    );
+
+    // depthData.data.series = concat(
+    //   depthData.data.series,
+    //   this.props.predictedDataState.depthValue
+    // );
+
     return (
       <div>
         <GridContainer>
@@ -504,10 +532,10 @@ class Dashboard extends React.Component {
               <CardHeader color="success">
                 <ChartistGraph
                   className="ct-chart"
-                  data={dailySalesChart.data}
+                  data={depthData.data}
                   type="Line"
-                  options={dailySalesChart.options}
-                  listener={dailySalesChart.animation}
+                  options={depthData.options}
+                  listener={depthData.animation}
                 />
               </CardHeader>
               <CardBody>
@@ -549,30 +577,6 @@ class Dashboard extends React.Component {
               </CardFooter>
             </Card>
           </GridItem>
-          {/*<GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="danger">
-              <ChartistGraph
-                className="ct-chart"
-                data={completedTasksChart.data}
-                type="Line"
-                options={completedTasksChart.options}
-                listener={completedTasksChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Water Level Forecast (Ground Water)</h4>
-              <p className={classes.cardCategory}>
-                Forecast of Ground Water for the next period
-              </p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> Just Updated
-              </div>
-            </CardFooter>
-          </Card>
-                </GridItem>*/}
         </GridContainer>
         <Typography variant="h2">SHALLOW TUBEWELLS</Typography>
         <GridContainer id="dad">
@@ -630,43 +634,7 @@ class Dashboard extends React.Component {
             Your current request for shallow tubewells cannot be processed due
             to the insufficient data. Please try after some days.
           </div>
-          {/*<GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="danger">
-              <ChartistGraph
-                className="ct-chart"
-                data={completedTasksChart.data}
-                type="Line"
-                options={completedTasksChart.options}
-                listener={completedTasksChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Water Level Forecast (Ground Water)</h4>
-              <p className={classes.cardCategory}>
-                Forecast of Ground Water for the next period
-              </p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> Just Updated
-              </div>
-            </CardFooter>
-          </Card>
-              </GridItem>*/}
         </GridContainer>
-        {
-          (completedTasksChart.data.series[0] = concat(
-            completedTasksChart.data.series[0],
-            this.props.predictedDataState.groundWaterValues
-          ))
-        }
-        {
-          (completedTasksChart.data.series[1] = concat(
-            completedTasksChart.data.series[1],
-            this.props.predictedDataState.groundWaterValues
-          ))
-        }
         <Typography variant="h2">WATER LEVEL FORECAST</Typography>
         <GridContainer>
           <GridItem xs={24} sm={24} md={12}>
@@ -705,8 +673,8 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ inputs, predictedDataState }) => ({
-  inputs,
+const mapStateToProps = ({ inputState, predictedDataState }) => ({
+  inputState,
   predictedDataState
 });
 

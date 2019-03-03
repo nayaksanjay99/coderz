@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { updateInputDetails } from "../../actions/inputs";
 import { bindActionCreators } from "redux";
 import { getPredictedDataForGroundWater } from "../../actions/predictedData";
+import { getDepthDataForGroundWater } from "../../actions/predictedData";
 import map from "lodash/map";
 
 const theme = createMuiTheme({
@@ -271,7 +272,6 @@ const currencies = [
 
 class Input extends React.Component {
   state = {
-    name: "Cat in the Hat",
     age: "",
     multiline: "Controlled",
     currency: "Maharashtra",
@@ -295,11 +295,11 @@ class Input extends React.Component {
     var year = document.getElementById("outlined-select-year").value;
     this.props.updateInputDetails(state, district, block, year);
     this.props.getPredictedDataForGroundWater(state, district, block, year);
+    this.props.getDepthDataForGroundWater(state, district, block);
   };
 
   componentDidMount() {
     let districts = [];
-    console.log(Files);
     districts = Files.Worksheet.filter(function(elm) {
       return elm.STATE == "MAHARASHTRA";
     });
@@ -316,14 +316,9 @@ class Input extends React.Component {
 
   currencycaller = rajya => {
     rajya = rajya.toUpperCase();
-    console.log(rajya);
     var districts = Files.Worksheet.filter(function(elm) {
-      console.log(elm.STATE);
       return elm.STATE == rajya;
     });
-    console.log("just above");
-    console.log("--------------------");
-    console.log(districts);
     var blocks = Files.Worksheet.filter(function(elm) {
       return elm.DISTRICT == districts[0].DISTRICT;
     });
@@ -484,7 +479,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       updateInputDetails,
-      getPredictedDataForGroundWater
+      getPredictedDataForGroundWater,
+      getDepthDataForGroundWater
     },
     dispatch
   );
