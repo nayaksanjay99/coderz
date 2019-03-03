@@ -8,6 +8,7 @@ import About from '../About/index'
 import Footer from '../../Reusables/footer'
 import './footer.css'
 import {Button} from '@material-ui/core'
+import logoz from './logo.jpg'
 
 export default class LandingPage extends React.Component{
     render(){
@@ -51,7 +52,7 @@ export default class LandingPage extends React.Component{
 
                     <div class="footer-left">
             
-                        <img src="images/logo1.png" style={{width:"10%"}} />
+                        <img src={logoz} style={{width:"150px",height:"40px"}} />
             
                         {/*<h3>Company<span>logo</span></h3> */}
             

@@ -1,6 +1,6 @@
 const endpointUrl = "http://localhost:3001";
 
-export const getUser = (email, password) => {
+export const getAllUser = (email, password) => {
   return new Promise((resolve, reject) => {
     fetch(`${endpointUrl}/login`, {
       method: "POST",
@@ -20,7 +20,4 @@ export const getUser = (email, password) => {
       });
   });
 };
-
-export const getAllUser=()=>{};
-export const updateUser=()=>{};
-export const deleteUser=()=>{};
+export const getAllUser = () => {};
