@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 import userState from "./user";
-import inputState from './inputs'
+import inputState from "./inputs";
+import predictedDataState from "./predictedDataState";
 
 const rootReducer = combineReducers({
   userState,
-  inputState
+  inputState,
+  predictedDataState
 });
 
 export default rootReducer;

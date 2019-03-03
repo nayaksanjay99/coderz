@@ -1,10 +1,10 @@
 import { ADD_INPUT } from "../constants/actionTypes";
 
 export const initialState = {
-  state:"",
-  district:"",
-  block:"",
-  year:""
+  state: "",
+  district: "",
+  block: "",
+  year: ""
 };
 
 export default function productOptions(state = initialState, action) {
@@ -14,7 +14,7 @@ export default function productOptions(state = initialState, action) {
         state: action.state,
         district: action.district,
         block: action.block,
-        year: action.year,
+        year: action.year
       };
     default:
       return state;

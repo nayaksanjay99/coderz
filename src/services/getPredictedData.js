@@ -3,7 +3,7 @@ const endpointUrl = "http://127.0.0.1:5000";
 export const getGroundWaterPredictions = (state, district, block, endYear) => {
   return new Promise((resolve, reject) => {
     fetch(`${endpointUrl}/predict`, {
-      method: "GET",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ state, district, block, year: endYear })
     })
