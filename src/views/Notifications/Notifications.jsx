@@ -56,6 +56,61 @@ class Notifications extends React.Component {
       br: false
     };
   }
+
+  elements=()=>{
+      if(this.props.notificaions==0)
+        return(<GridItem>
+          <h5>Notifications Style</h5>
+  //             <br /> <SnackbarContent message={"No notifications    "} />
+            </GridItem>
+          )
+          else
+          return(
+            <GridItem >
+              <h5>Notifications Style</h5>
+              <br />
+              <SnackbarContent message={"This is the first plain notification"} />
+              <SnackbarContent
+                message={"This is the second notification with close button."}
+                close
+              />
+              <SnackbarContent
+                message={"This is a third notification with a close button and an icon."}
+                close
+                icon={AddAlert}
+              />
+              <SnackbarContent
+                message={
+                  "This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style."
+                }
+                close
+                icon={AddAlert}
+              />
+            </GridItem>
+          )
+  }
+  // <GridItem >
+  //             <h5>Notifications Style</h5>
+  //             <br />
+  //             <SnackbarContent message={"This is the first plain notification"} />
+  //             <SnackbarContent
+  //               message={"This is the second notification with close button."}
+  //               close
+  //             />
+  //             <SnackbarContent
+  //               message={"This is a third notification with a close button and an icon."}
+  //               close
+  //               icon={AddAlert}
+  //             />
+  //             <SnackbarContent
+  //               message={
+  //                 "This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style."
+  //               }
+  //               close
+  //               icon={AddAlert}
+  //             />
+  //           </GridItem>
+            
   // to stop the warning of calling setState of unmounted component
   componentWillUnmount() {
     var id = window.setTimeout(null, 0);
@@ -86,35 +141,18 @@ class Notifications extends React.Component {
           </p>
         </CardHeader>
         <CardBody>
-          <GridContainer>
-            <GridItem xs={24} sm={24} md={12}>
-              <h5>Notifications Style</h5>
-              <br />
-              <SnackbarContent message={"This is a plain notification"} />
-              <SnackbarContent
-                message={"This is a notification with close button."}
-                close
-              />
-              <SnackbarContent
-                message={"This is a notification with close button and an icon."}
-                close
-                icon={AddAlert}
-              />
-              <SnackbarContent
-                message={
-                  "This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style."
-                }
-                close
-                icon={AddAlert}
-              />
-            </GridItem>
-            
-          </GridContainer>
           <br />
           <br />
         </CardBody>
       </Card>
     );
+  }
+}
+
+const mapStateToProps=(userState)=>
+{
+  return{
+    userState
   }
 }
 

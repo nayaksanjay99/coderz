@@ -101,7 +101,7 @@ class Dashboard extends React.Component {
                             {
                                     sec = "0"+sec;
                             }
-                            
+              
 
 
 
@@ -195,9 +195,9 @@ class Dashboard extends React.Component {
               <CardBody>
                 <Table
                   tableHeaderColor="warning"
-                  tableHead={["ID", "Name", "Email", "Contact"]}
+                  tableHead={["ID", "Name", "Surname", "E-Mail"]}
                   tableData={[
-                    ["1", "Dakota Rice", "$36,738", "Niger"],
+                    ["1", "Sanjay", "Nayak", "sanjayjnayak99@gmail.com"],
                     ["2", "Minerva Hooper", "$23,789", "Curaçao"],
                     ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
                     ["4", "Philip Chaney", "$38,735", "Korea, South"]

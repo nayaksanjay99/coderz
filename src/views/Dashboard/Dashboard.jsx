@@ -48,7 +48,17 @@ class Dashboard extends React.Component {
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
-
+  // componentDidMount(){
+  //   this.props
+  //   .allUserDetails('sanjayjnayak99@gmail.com', 'nayak')
+  //   .then(() => {
+  //     console.log("login successful");
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
+    
+  // }
   render() {
     //
     var delays = 80,
@@ -381,6 +391,9 @@ class Dashboard extends React.Component {
     if (sec < 10) {
       sec = "0" + sec;
     }
+
+
+   
 
     //
     const { classes } = this.props;

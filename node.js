@@ -158,6 +158,23 @@ app.post("/signup", async (req, res, next) => {
   }
 });
 
+app.listen('/updateone',async(req,res,next)=>{
+  const db = getdb();
+  var rex = null;
+  try{
+    db.collection('login').updateOne(
+        { "_id" : req.body.id },
+        { $set: { "fname" : req.body.fname },
+        $set: {"lname":req.body.lname },
+        $set:{'mail':req.body.pass}
+    }
+        )
+        res.json(true)
+}
+catch(err){
+  console.log(err)
+}
+
 app.listen(3001, () => {
   console.log("now conn");
-});
+})
