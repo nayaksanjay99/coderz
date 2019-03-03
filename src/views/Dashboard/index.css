@@ -10,4 +10,9 @@
     visibility:visible;
     
     background-color: gray;
+    background-color: gray;
+}
+#andha:hover{
+    z-index:5000;
+    visibility:visible
 }

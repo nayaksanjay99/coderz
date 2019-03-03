@@ -298,7 +298,13 @@ class Input extends React.Component{
         var year = document.getElementById("outlined-select-year").value;
         this.props
           .updateInputDetails(state, district, block, year)
+<<<<<<< HEAD
         this.Servicefile(state,district,block,year)
+=======
+          
+          
+  
+>>>>>>> fc7514d524b55962d5a3c56ae4ffa0a59e28a58b
     }
 
       componentWillMount(){

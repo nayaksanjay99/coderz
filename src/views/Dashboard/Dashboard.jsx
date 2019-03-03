@@ -152,7 +152,11 @@ var delays2 = 80,
     const dailySalesChart2 = {
       data: {
         labels: ["70-90", "90-110", "110-130", "130-150", ">150"],
+<<<<<<< HEAD
         series: [[]]
+=======
+        series: [[12, 17, 7, 17, 23],[10,7,5,20,35]]
+>>>>>>> fc7514d524b55962d5a3c56ae4ffa0a59e28a58b
       },
       options: {
         lineSmooth: Chartist.Interpolation.cardinal({
@@ -599,7 +603,11 @@ var delays2 = 80,
             </CardFooter>
           </Card>
      </GridItem>
+<<<<<<< HEAD
      <div id="andha">Your current request for shallow tubewells cannot be processed due to the insufficient data. Please try after some days.</div>
+=======
+     <div id="andha">Your current request cannot be processed due to the insufficient data. Please try after some days.</div>
+>>>>>>> fc7514d524b55962d5a3c56ae4ffa0a59e28a58b
         {/*<GridItem xs={12} sm={12} md={4}>
           <Card chart>
             <CardHeader color="danger">
