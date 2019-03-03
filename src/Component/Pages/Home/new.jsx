@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,6 +8,17 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Acon from './download-button.png'
+
+
+const theme=createMuiTheme({
+  overrides:{
+    MuiTableCell:{
+      head:{
+        fontSize:"30px"
+      }
+    }
+  },
+})
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -20,11 +31,13 @@ const CustomTableCell = withStyles(theme => ({
 }))(TableCell);
 
 const styles = theme => ({
+
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
     marginTop:0,
+    marginBottom:0,
   },
   table: {
     minWidth: 700,
@@ -59,11 +72,12 @@ function CustomizedTable(props) {
   const { classes } = props;
 
   return (
+    <MuiThemeProvider theme={theme}>
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
-          <TableRow>
-            <CustomTableCell>Dessert (100g serving)</CustomTableCell>
+          <TableRow style={{height:"70px",fontSize:"40px"}}>
+            <CustomTableCell>Title</CustomTableCell>
             <CustomTableCell align="right">Download</CustomTableCell>
           </TableRow>
         </TableHead>
@@ -73,12 +87,13 @@ function CustomizedTable(props) {
               <CustomTableCell component="th" scope="row">
                 {row.name}
               </CustomTableCell>
-              <CustomTableCell align="right"><a target="_blank" href={row.calories}><img width="20" height="20" style={{marginLeft:"20px"}} src={Acon}/></a></CustomTableCell>
+              <CustomTableCell align="right"><a target="_blank" href={row.calories}><img width="20" height="20" style={{marginLeft:"60px"}} src={Acon}/></a></CustomTableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </Paper>
+    </MuiThemeProvider>
   );
 }
 
