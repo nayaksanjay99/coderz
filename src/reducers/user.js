@@ -9,7 +9,7 @@ export const initialState = {
   isAdmin: false
 };
 
-export default function productOptions(state = initialState, action) {
+export default function user(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
       return {

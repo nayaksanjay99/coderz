@@ -1,17 +1,30 @@
-const endpointUrl = "http://localhost:5000";
+const endpointUrl = "http://127.0.0.1:5000";
 
-export const getPredictedData = (state, district,block,year) => {
+export const getGroundWaterPredictions = (state, district, block, endYear) => {
   return new Promise((resolve, reject) => {
     fetch(`${endpointUrl}/predict`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ state,district,block,endYear:year })
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http:/127.0.0.1:5000",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Headers": "*"
+      },
+      body: JSON.stringify({
+        state: "RJ",
+        district: "Ajmer",
+        block: "Arain",
+        endYear
+      })
     })
       .then(res => {
-        const text = res.text();
+        console.log(res);
+        const text = res.json();
+        console.log(text);
         return text.then(value => {
           console.log(value);
-          return resolve(JSON.parse(value));
+          return resolve(value);
         });
       })
       .catch(error => {
@@ -20,4 +33,3 @@ export const getPredictedData = (state, district,block,year) => {
       });
   });
 };
-

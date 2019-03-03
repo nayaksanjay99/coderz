@@ -33,6 +33,7 @@ app.post("/login", async (req, res, next) => {
     console.log(rex);
     if (rex.length != 0) rest[0] = rex[0];
     else rest = [];
+    console.log("rt");
     console.log(rest);
     if (rest.length != 0) {
       console.log("rest.length!=0");
@@ -52,6 +53,43 @@ app.post("/login", async (req, res, next) => {
     } else {
       console.log("else");
       res.json(false);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/admin/users", async (req, res, next) => {
+  console.log("here");
+  console.log(req.data);
+  console.log(req.body.mailid);
+  const db = getdb();
+  var rex = null;
+  try {
+    rex = await db
+      .collection("login")
+      .find({ mail: req.body.mailid })
+      .toArray();
+    console.log(rex);
+    if (rex.length != 0) rest[0] = rex[0];
+    else rest = [];
+    console.log(rest);
+    if (rest.length) {
+      if (rest[0].pass === req.body.password) {
+        console.log("correct password");
+        if (rest[0].isAdmin) {
+          const db1 = getdb();
+          const getAllUserAsync = await db1
+            .collection("login")
+            .find()
+            .toArray();
+          if (getAllUserAsync.length != 0) rest = getAllUserAsync;
+          else rest = [];
+          console.log(rest);
+          if (rest.length) res.json(rest);
+        }
+        res.json("Not Admin");
+      } else res.json(false);
     }
   } catch (err) {
     console.log(err);
@@ -82,7 +120,8 @@ app.post("/signup", async (req, res, next) => {
         lname: req.body.lname,
         mail: req.body.mail,
         pass: req.body.pass,
-        notifications: []
+        notifications: [],
+        isAdmin: false
       };
       var transporter = nodemailer.createTransport({
         service: "gmail",
