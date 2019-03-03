@@ -13,7 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
 import { updateInputDetails } from "../../actions/inputs";
 import { bindActionCreators } from "redux";
-import { getGroundWaterPredictions } from "../../services/getPredictedData";
+import { getPredictedDataForGroundWater } from "../../actions/predictedData";
 import map from "lodash/map";
 
 const theme = createMuiTheme({
@@ -294,9 +294,7 @@ class Input extends React.Component {
     var block = document.getElementById("outlined-select-block").value;
     var year = document.getElementById("outlined-select-year").value;
     this.props.updateInputDetails(state, district, block, year);
-    getGroundWaterPredictions(state, district, block, year).then(res => {
-      console.log(res);
-    });
+    this.props.getPredictedDataForGroundWater(state, district, block, year);
   };
 
   componentDidMount() {
@@ -485,7 +483,8 @@ class Input extends React.Component {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      updateInputDetails
+      updateInputDetails,
+      getPredictedDataForGroundWater
     },
     dispatch
   );

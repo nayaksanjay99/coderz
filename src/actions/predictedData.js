@@ -1,5 +1,5 @@
 import { GET_GROUND_WATER_PREDICTED_VALUE } from "../constants/actionTypes";
-import getGroundWaterPredictions from "../services/getPredictedData";
+import { getGroundWaterPredictions } from "../services/getPredictedData";
 
 export const getPredictedDataForGroundWater = (
   state,

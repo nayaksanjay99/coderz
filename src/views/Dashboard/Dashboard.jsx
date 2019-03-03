@@ -25,6 +25,7 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import { connect } from "react-redux";
 import Input from "./input";
 import "./index.css";
+import concat from "lodash/concat";
 import { getGroundWaterPredictions } from "../../services/getPredictedData";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
@@ -654,6 +655,18 @@ class Dashboard extends React.Component {
           </Card>
               </GridItem>*/}
         </GridContainer>
+        {
+          (completedTasksChart.data.series[0] = concat(
+            completedTasksChart.data.series[0],
+            this.props.predictedDataState.groundWaterValues
+          ))
+        }
+        {
+          (completedTasksChart.data.series[1] = concat(
+            completedTasksChart.data.series[1],
+            this.props.predictedDataState.groundWaterValues
+          ))
+        }
         <Typography variant="h2">WATER LEVEL FORECAST</Typography>
         <GridContainer>
           <GridItem xs={24} sm={24} md={12}>
@@ -692,8 +705,9 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ inputs }) => ({
-  inputs
+const mapStateToProps = ({ inputs, predictedDataState }) => ({
+  inputs,
+  predictedDataState
 });
 
 export default connect(
